@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Json to Html</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="data.js"></script>
+    
+   <script>
+       
+        let clickCnt = 0;
+        function jsontoh(){
+            clickCnt++;
+            // let loopCnt = 0;
+            if (clickCnt <= 1 && document.getElementById('mbutton').textContent=='SHOW'){
+                let str = "<table class='table table-responsive'><tr><th>Company Name</th><th>Logo</th><th>About</th></tr>"
+
+                for ( obj of Data){
+                    str += '<tr>';
+                    for (key in obj){
+                        if(key == 'img_src'){
+                            str += '<td>' + `<img src=${obj[key]} height="100" width="100"/>` + '</td>';
+                        }else{
+                            str +='<td>' + obj[key] +'</td>';
+                        }
+                    }
+                    str+='</tr>';
+                }
+                // console.log(++loopCnt)
+                str +='</table>'
+                document.getElementById('mdiv').innerHTML=str;
+                document.getElementById('mbutton').textContent='HIDE';
+            }else if(clickCnt > 1 && document.getElementById('mbutton').textContent=='SHOW' || document.getElementById('mbutton').textContent=='SHOW AGAIN'){
+                document.getElementById('mdiv').style.display = 'block';
+                document.getElementById('mbutton').textContent='HIDE';
+            }else{
+                document.getElementById('mdiv').style.display = 'none';
+                document.getElementById('mbutton').textContent='SHOW AGAIN';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="mdiv">Click here to fetch JSON file</div>
+    <button id='mbutton' class="btn btn-primary" onclick="jsontoh()">SHOW</button>
+</body>
+</html>
